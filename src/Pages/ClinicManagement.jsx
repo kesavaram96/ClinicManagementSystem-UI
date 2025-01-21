@@ -104,7 +104,7 @@ const ClinicManagement = () => {
   // Delete Clinic
   const handleDeleteClinic = async (clinicId) => {
     try {
-      await axios.delete(`/Clinic//delete/${clinicId}`);
+      await axios.delete(`/Clinic/delete/${clinicId}`);
       fetchClinics();
     } catch (error) {
       console.error("Error deleting clinic:", error);

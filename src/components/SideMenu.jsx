@@ -15,6 +15,8 @@ const menuItems = [
   { text: 'Users', path: '/home/users', icon: <PeopleIcon /> },  // People icon for Users
   { text: 'Clinic', path: '/home/clinic', icon: <LocalHospitalIcon /> },  // Hospital icon for Clinic
   { text: 'Appointment', path: '/home/appointments', icon: <EventNoteIcon /> },  // Event icon for Appointment
+  { text: 'Requests', path: '/home/appointmentRequest', icon: <EventNoteIcon /> },  // Event icon for Appointment
+
 ];
 
 

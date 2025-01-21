@@ -105,29 +105,6 @@ const AppointmentPage = () => {
   };
 
   
-//   const handleUpdate = async () => {
-//     if (!selectedAppointment) return;
-  
-//     // Directly pass the fields in the payload without nesting them
-//     const updatedAppointmentData = {
-//       username: selectedAppointment.patientName,  // Use the patient's username
-//       doctorId: selectedAppointment.doctorId,  // Use the selected doctor's ID
-//       clinicId: selectedAppointment.clinicId,  // Use the selected clinic's ID
-//       appointmentDate: selectedAppointment.appointmentDate,  // Current appointment date
-//       status: updatedStatus,  // New status entered by the user
-//     };
-  
-//     try {
-//       // Update the appointment with the correct API endpoint
-//       const response = await axios.put(`/Appointment/update/${selectedAppointment.appointmentId}`, updatedAppointmentData);
-//       console.log("Appointment updated successfully", response.data);  // Log the response for debugging
-//       setOpenEdit(false);  // Close the dialog
-//       fetchAppointments();  // Fetch updated appointment data
-//     } catch (error) {
-//       console.error("Error updating appointment", error);
-//     }
-//   };
-  
 
   const handleDelete = async (id) => {
     if (window.confirm("Are you sure you want to delete this appointment?")) {

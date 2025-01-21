@@ -8,6 +8,7 @@ import UserCreationForm from './UserCreationForm';
 import BookAppointment from './BookAppointment';
 import ClinicManagement from './ClinicManagement';
 import AppointmentPage from './AppointmentPage';
+import AppointmentRequest from './AppointmentRequest';
 // import Profile from './Profile';
 // import Settings from './Settings';
 
@@ -38,6 +39,8 @@ function Home() {
           <Route path="bookappointments" element={<BookAppointment />} />
           <Route path="clinic" element={<ClinicManagement />} />
           <Route path="appointments" element={<AppointmentPage />} />
+          <Route path="appointmentRequest" element={<AppointmentRequest />} />
+
 
 
 
