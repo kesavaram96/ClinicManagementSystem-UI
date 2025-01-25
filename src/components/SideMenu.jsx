@@ -5,6 +5,9 @@ import HomeIcon from '@mui/icons-material/Home';
 import PeopleIcon from '@mui/icons-material/People';
 import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
 import EventNoteIcon from '@mui/icons-material/EventNote';
+import PendingActionsIcon from '@mui/icons-material/PendingActions';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+
 
 import ProfileMenu from './ProfileMenu';
 
@@ -13,11 +16,13 @@ const drawerWidth = 240;
 const menuItems = [
   { text: 'Dashboard', path: '/home/', icon: <HomeIcon /> },  // Home icon for Dashboard
   { text: 'Users', path: '/home/users', icon: <PeopleIcon /> },  // People icon for Users
-  { text: 'Clinic', path: '/home/clinic', icon: <LocalHospitalIcon /> },  // Hospital icon for Clinic
-  { text: 'Appointment', path: '/home/appointments', icon: <EventNoteIcon /> },  // Event icon for Appointment
-  { text: 'Requests', path: '/home/appointmentRequest', icon: <EventNoteIcon /> },  // Event icon for Appointment
-
+  { text: 'Clinics', path: '/home/clinic', icon: <LocalHospitalIcon /> },  // Hospital icon for Clinics
+  { text: 'Appointments', path: '/home/appointments', icon: <EventNoteIcon /> },  // Event icon for Appointments
+  { text: 'Appointment Requests', path: '/home/appointmentRequest', icon: <PendingActionsIcon /> },  // Pending icon for Appointment Requests
+  { text: 'Approved Appointments', path: '/home/appointmentApproval', icon: <CheckCircleIcon /> }, 
+  { text: 'Doctor Appointments', path: '/home/approveAppointment', icon: <CheckCircleIcon /> }, 
 ];
+
 
 
   //{ text: 'Settings', path: '/settings', icon: <SettingsIcon /> },

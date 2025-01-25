@@ -150,15 +150,19 @@ const UserManagement = () => {
   
   return (
     <>
-      <Paper elevation={3} style={{ padding: "20px", marginTop: "5px" }}>
-        <Typography variant="h5" gutterBottom>
-          Users List
-        </Typography>
-        <Box display="flex" justifyContent="flex-end" style={{ marginBottom: "20px" }}>
+    <Typography variant="h4" sx={{  mb: 2 }}>
+            User Information
+          </Typography>
+          <Box display="flex" justifyContent="flex-start" style={{ marginBottom: "20px" }}>
           <Button variant="contained" color="primary" onClick={handleCreateNewUser}>
             Create New User
           </Button>
         </Box>
+      <Paper elevation={3} style={{ padding: "20px", marginTop: "5px" }}>
+        {/* <Typography variant="h5" gutterBottom>
+          Users List
+        </Typography> */}
+        
         <TableContainer component={Paper}>
           <Table>
             <TableHead>
@@ -210,9 +214,7 @@ const UserManagement = () => {
           maxHeight: "80%",
           overflowY: "auto",
         }}>
-          <Typography variant="h6" sx={{ textAlign: "center", mb: 2 }}>
-            User Information
-          </Typography>
+          
 
           {userData ? (
             <Box>

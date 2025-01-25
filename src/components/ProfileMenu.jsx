@@ -1,35 +1,66 @@
-import React, { useState } from 'react';
-import { Box, IconButton, Menu, MenuItem } from '@mui/material';
+import React, { useState, useEffect } from 'react';
+import { Box, IconButton, Menu, MenuItem, Badge, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import SettingsIcon from '@mui/icons-material/Settings';
 import NotificationsIcon from '@mui/icons-material/Notifications';
+import * as signalR from '@microsoft/signalr';
 
 function ProfileMenu() {
   const [anchorEl, setAnchorEl] = useState(null);
+  const [notificationAnchorEl, setNotificationAnchorEl] = useState(null);
+  const [notifications, setNotifications] = useState([]);
+  const [unreadCount, setUnreadCount] = useState(0);
   const navigate = useNavigate();
 
-  // Open the menu when the SettingsIcon is clicked
+  useEffect(() => {
+    const connection = new signalR.HubConnectionBuilder()
+      .withUrl("https://localhost:7033/notificationHub", {
+        skipNegotiation: true,
+        transport: signalR.HttpTransportType.WebSockets
+      })
+      .withAutomaticReconnect()
+      .build();
+
+    connection.start()
+      .then(() => {
+        connection.on("ReceiveNotification", (notification) => {
+          setNotifications(prev => [notification, ...prev]);
+          setUnreadCount(prev => prev + 1);
+        });
+      })
+      .catch(err => console.error('SignalR Connection Error: ', err));
+
+    return () => {
+      connection.stop();
+    };
+  }, []);
+
   const handleMenuOpen = (event) => {
-    setAnchorEl(event.currentTarget); // Set the anchor element for the menu
+    setAnchorEl(event.currentTarget); 
   };
 
-  // Close the menu
   const handleMenuClose = () => {
-    setAnchorEl(null); // Reset the anchor element to close the menu
+    setAnchorEl(null); 
   };
 
-  // Navigate to the Profile page
+  const handleNotificationsOpen = (event) => {
+    setNotificationAnchorEl(event.currentTarget);
+    setUnreadCount(0);
+  };
+
+  const handleNotificationsClose = () => {
+    setNotificationAnchorEl(null);
+  };
+
   const handleProfileClick = () => {
-    navigate('/profile'); // Redirect to profile page
-    handleMenuClose(); // Close the menu after navigation
+    navigate('/profile'); 
+    handleMenuClose(); 
   };
 
-  // Navigate to the Login page (Logout function)
   const handleLogout = () => {
-    // Clear authentication data (optional)
-    localStorage.removeItem('token'); // Remove token if stored
-    navigate('/logout'); // Redirect to login page
-    handleMenuClose(); // Close the menu after navigation
+    localStorage.removeItem('token'); 
+    navigate('/logout'); 
+    handleMenuClose(); 
   };
 
   return (
@@ -44,20 +75,67 @@ function ProfileMenu() {
       padding: '5px 10px',
       color: '#fff',
       boxShadow: 3,
-      zIndex: 9999, // Ensure it appears above other elements
+      zIndex: 9999,
     }}>
-      <IconButton sx={{ color: '#fff' }}>
-        <NotificationsIcon />
+      <IconButton 
+        sx={{ color: '#fff' }} 
+        onClick={handleNotificationsOpen}
+      >
+        <Badge badgeContent={unreadCount} color="error">
+          <NotificationsIcon />
+        </Badge>
       </IconButton>
-      <IconButton sx={{ color: '#fff' }} onClick={handleMenuOpen}>
+
+      <Menu
+        anchorEl={notificationAnchorEl}
+        open={Boolean(notificationAnchorEl)}
+        onClose={handleNotificationsClose}
+        PaperProps={{
+          sx: {
+            maxHeight: 300,
+            width: 300,
+          }
+        }}
+      >
+        {notifications.length === 0 ? (
+          <MenuItem disabled>
+            <Typography>No notifications</Typography>
+          </MenuItem>
+        ) : (
+          notifications.map((notification, index) => (
+            <MenuItem 
+              key={index}
+              sx={{ 
+                whiteSpace: 'normal', 
+                wordWrap: 'break-word',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'start',
+                py: 1,
+              }}
+            >
+              <Typography variant="body2" sx={{ fontWeight: 'bold' }}>
+                {notification.Message}
+              </Typography>
+              <Typography variant="caption" color="text.secondary">
+                {new Date().toLocaleString()}
+              </Typography>
+            </MenuItem>
+          ))
+        )}
+      </Menu>
+
+      <IconButton 
+        sx={{ color: '#fff' }} 
+        onClick={handleMenuOpen}
+      >
         <SettingsIcon />
       </IconButton>
 
-      {/* Profile dropdown menu */}
       <Menu
-        anchorEl={anchorEl}  // The menu anchor point
-        open={Boolean(anchorEl)}  // Menu is open if anchorEl is set
-        onClose={handleMenuClose}  // Close the menu when clicking outside
+        anchorEl={anchorEl}
+        open={Boolean(anchorEl)}
+        onClose={handleMenuClose}
         anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
         transformOrigin={{ vertical: 'top', horizontal: 'right' }}
       >

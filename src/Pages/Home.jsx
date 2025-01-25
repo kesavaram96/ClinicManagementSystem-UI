@@ -9,6 +9,9 @@ import BookAppointment from './BookAppointment';
 import ClinicManagement from './ClinicManagement';
 import AppointmentPage from './AppointmentPage';
 import AppointmentRequest from './AppointmentRequest';
+import AppointmentApproval from './AppointmentApproval';
+import ApproveAppointment from './ApproveAppointment';
+import DiagnoseReportScreen from './DiagnoseReportScreen';
 // import Profile from './Profile';
 // import Settings from './Settings';
 
@@ -40,6 +43,11 @@ function Home() {
           <Route path="clinic" element={<ClinicManagement />} />
           <Route path="appointments" element={<AppointmentPage />} />
           <Route path="appointmentRequest" element={<AppointmentRequest />} />
+          <Route path="appointmentApproval" element={<AppointmentApproval />} />
+          <Route path="approveAppointment" element={<ApproveAppointment />} />
+
+          <Route path="DiagnoseReportScreen/:patientId/:appointmentId" element={<DiagnoseReportScreen />} 
+/>
 
 
 

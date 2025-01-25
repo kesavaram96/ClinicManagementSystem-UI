@@ -113,7 +113,7 @@ const ClinicManagement = () => {
 
   return (
     <Container maxWidth="md" style={{ marginTop: "20px" }}>
-      <Typography variant="h4" align="center" gutterBottom>
+      <Typography variant="h4"  gutterBottom>
         Clinic Management
       </Typography>
 

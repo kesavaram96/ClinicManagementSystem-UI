@@ -29,19 +29,30 @@ const BookAppointment = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        const token = localStorage.getItem("token");
+  
+        const config = {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            Accept: "*/*",
+          },
+        };
+  
         const [clinicRes, doctorRes] = await Promise.all([
-          axios.get("/Appointment/clinics"),
-          axios.get("/Appointment/doctors")
+          axios.get("/Appointment/clinics", config),
+          axios.get("/Appointment/doctors", config),
         ]);
+  
         setClinics(clinicRes.data);
         setDoctors(doctorRes.data);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
+  
     fetchData();
   }, []);
-
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
